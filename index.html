@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="Images\icons8-math-96.png">
+    <link rel="stylesheet" href="Css\index.css">
+    <title>Math Oddssey Room</title>
+
+</head>
+
+
+<body>
+    <div class="container">
+        <div class="overlay">
+            <div class="door door-left"></div>
+            <div class="door door-right"></div>
+            <div class="welcome-message">
+                <span class="line1">WELCOME!</span>
+                <span class="line2">Math Oddssey Room</span>
+            </div>
+        </div>
+        <div class="shape-container"></div>
+        <div class="content">
+        </div>
+    </div>
+
+    <button id="carLicensePopupBtn" class="car-license-popup-button">License</button>
+<div id="carLicensePopupOverlay" class="car-license-popup-overlay">
+    <div class="car-license-popup-content">
+        <img src="Images\3D Black.png" alt="Company Logo" class="car-license-popup-logo">
+        <h2>All rights reserved.</h2><br>
+        <p>This software is licensed under strict terms. Redistribution and use in source and binary forms, with or without modification, are strictly prohibited without express written permission from Chaudhary Abdul Rafay.</p><br>
+        <p>&copy; 2024 Deep Rathod. </p>
+        <button id="carLicenseCloseBtn" class="car-license-close-button">Close</button>
+    </div>
+</div>
+
+    <script>
+        function createShape() {
+            const shape = document.createElement('div');
+            shape.classList.add('shape');
+            const shapes = ['■', '▲', '●', '★'];
+            shape.innerText = shapes[Math.floor(Math.random() * shapes.length)];
+
+            shape.style.left = `${Math.random() * window.innerWidth}px`;
+
+            const colors = ['#EE82EE', '#662d91', '#90EE90', '#318CE7']; // Updated colors
+            shape.style.color = colors[Math.floor(Math.random() * colors.length)];
+
+            document.querySelector('.shape-container').appendChild(shape);
+
+            setTimeout(() => {
+                shape.remove();
+            }, 5000);
+        }
+
+        function openDoors() {
+            document.querySelector('.door-left').style.transform = 'rotateY(-90deg) translateZ(-50px)';
+            document.querySelector('.door-right').style.transform = 'rotateY(90deg) translateZ(-50px)';
+            setTimeout(animateWelcomeMessage, 1000);
+        }
+
+        function animateWelcomeMessage() {
+            const welcomeMessage = document.querySelector('.welcome-message');
+            welcomeMessage.style.opacity = '1';
+            welcomeMessage.style.transform = 'scale(1)';
+
+            const spans = welcomeMessage.querySelectorAll('span');
+            spans.forEach((span, index) => {
+                setTimeout(() => {
+                    span.style.opacity = '1';
+                    span.style.transform = 'translateY(0)';
+                }, index * 500);
+            });
+
+            setTimeout(startShapeAnimation, 1000);
+        }
+
+        function showContent() {
+            document.querySelector('.content').style.opacity = '10';
+            setTimeout(() => {
+                document.querySelector('.overlay').style.opacity = '0';
+                document.querySelector('.content').style.opacity = '0';
+                setTimeout(() => {
+                    document.querySelector('.overlay').style.display = 'none';
+                    window.location.href = 'Cal-1.html'; 
+                }, 50);
+            }, 2000);
+        }
+
+        function startShapeAnimation() {
+            for (let i = 0; i < 50; i++) { 
+                setTimeout(createShape, Math.random() * 5000);
+            }
+        }
+
+        setTimeout(openDoors, 1000);
+        setTimeout(showContent, 10000); 
+    </script>
+
+
+
+
+<script src="JavaScript\index.js"></script>
+
+
+
+
+
+</body>
+</html>
